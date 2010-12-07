@@ -1,18 +1,24 @@
+require "yaml"
+
 require 'rubygems'
 require "bundler"
 Bundler.require :default
 
 require File.join(File.dirname(__FILE__), "chillfile/config")
 require File.join(File.dirname(__FILE__), "chillfile/cli")
-require File.join(File.dirname(__FILE__), "chillfile/database")
+require File.join(File.dirname(__FILE__), "chillfile/database_server")
 require File.join(File.dirname(__FILE__), "chillfile/models")
 
 module Chillfile
-  VERSION = "0.0.1"
+  get_version = lambda do
+    v = YAML.parse_file(File.join(File.dirname(__FILE__), "../version.yml"))
+    "#{v[:major].value}.#{v[:minor].value}.#{v[:patch].value}"
+  end
+  VERSION = get_version.call
   
   def self.boot!(config = {})
     @@config = Chillfile::Config.new(config)
-    @@db = Chillfile::Database.connect
+    @@dbserver = Chillfile::DatabaseServer.new
     Chillfile::Models.load!
     true
   end
@@ -21,7 +27,7 @@ module Chillfile
     @@config
   end
   def self.db
-    @@db
+    @@dbserver.default_database
   end
   
   # compare

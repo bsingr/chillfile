@@ -1,0 +1,5 @@
+{
+  "path": ".",
+  "couchdb_server": "http://localhost:5984",
+  "couchdb_database": "chillfile"
+}
