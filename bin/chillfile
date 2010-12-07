@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+#require "rubygems"
+#require "chillfile"
+
+require File.join(File.dirname(__FILE__), "../lib/chillfile")
+
+Chillfile::CLI.start
