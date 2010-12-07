@@ -30,6 +30,25 @@ module Chillfile
     def db
       @@dbserver.default_database
     end
+    
+    def sync!
+      fs = fs_list
+      db = db_list
+      comparator = compare(fs_list, db_list)
+      
+      # create new files
+      comparator.created.each do |checksum, path|
+        doc = ChillingFile.new(:checksum => checksum, :path => path).save
+        file = File.open(path)
+        doc.create_attachment(:file => file, :name => "master")
+        doc.save
+      end
+      
+      #TODO moved
+      #TODO modified
+      #TODO deleted
+      
+    end
   
     # compare
     def compare(list_after, list_before)
