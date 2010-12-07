@@ -16,32 +16,34 @@ module Chillfile
   end
   VERSION = get_version.call
   
-  def self.boot!(config = {})
-    @@config = Chillfile::Config.new(config)
-    @@dbserver = Chillfile::DatabaseServer.new
-    Chillfile::Models.load!
-    true
-  end
+  class << self
+    def boot!(config = {})
+      @@config = Chillfile::Config.new(config)
+      @@dbserver = Chillfile::DatabaseServer.new
+      Chillfile::Models.load!
+      true
+    end
+    
+    def config
+      @@config
+    end
+    def db
+      @@dbserver.default_database
+    end
   
-  def self.config
-    @@config
-  end
-  def self.db
-    @@dbserver.default_database
-  end
+    # compare
+    def compare(list_after, list_before)
+      Treedisha::Comparator.new(list_after, list_before)
+    end
   
-  # compare
-  def self.compare(list_after, list_before)
-    Treedisha::Comparator.new(list_after, list_before)
-  end
+    # filesystem
+    def fs_list
+      Treedisha::Filesystem.all_files_with_sha1(config["path"])
+    end
   
-  # filesystem
-  def self.fs_list
-    Treedisha::Filesystem.all_files_with_sha1(config["path"])
-  end
-  
-  # databse
-  def self.db_list
-    ChillingFile.by_filesystem_raw
+    # databse
+    def db_list
+      ChillingFile.by_filesystem_raw
+    end
   end
 end
