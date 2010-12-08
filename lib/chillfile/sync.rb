@@ -113,8 +113,8 @@ module Chillfile
         list_iterator = lambda do |notifier|
           list.each do |args|
             block.call(*args)
+            notifier.call if notifier
           end
-          notifier.call if notifier
         end
         
         if @progressbar
