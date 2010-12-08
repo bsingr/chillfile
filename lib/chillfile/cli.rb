@@ -47,7 +47,12 @@ module Chillfile
     
     desc 'sync', 'sync filesystem into db'
     def sync
-      Chillfile.sync!
+      progressbar = lambda do |info, notifier|
+        pbar = ::ProgressBar.new(info[:name], info[:size])
+        notifier.call(lambda{ pbar.inc })
+        pbar.finish
+      end
+      Chillfile.sync!(progressbar)
     end
     
     desc 'fslist', 'json list of files in the filesystem'

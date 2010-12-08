@@ -1,10 +1,11 @@
 module Chillfile
   module Sync
     class << self      
-      def process!(comparator)
+      def process!(comparator, progressbar = nil)
+        @progressbar = progressbar
         
         # created files
-        comparator.created.each do |checksum, path|
+        process_list(comparator.created, "Created") do |checksum, path|
           for_doc_with(checksum) do |doc|
             if doc
               update_doc_add_path(doc, path)
@@ -13,16 +14,16 @@ module Chillfile
             end
           end
         end
-      
+        
         # moved files
-        comparator.moved.each do |checksum, paths|
+        process_list(comparator.moved, "Moved") do |checksum, paths|
           for_doc_with(checksum) do |doc|
             update_doc_paths(doc, paths[:old_paths], paths[:new_paths])
           end
         end
       
         # modified files
-        comparator.modified.each do |path, checksums|
+        process_list(comparator.modified, "Modified") do |path, checksums|
           for_doc_with(checksums[:old_checksum]) do |doc|
           
             # split it up if there is more than one path
@@ -32,13 +33,13 @@ module Chillfile
             
               [base_doc, forked_doc]
             else
-              update_doc_attachment(doc)  
+              update_doc_attachment(doc, checksums[:new_checksum])  
             end          
           end
         end
       
         # deleted
-        comparator.deleted.each do |checksum, path|
+        process_list(comparator.deleted, "Deleted") do |checksum, path|
           for_doc_with(checksum) do |doc|
             if doc.paths.size > 1
               update_doc_paths(doc, [path])
@@ -85,8 +86,8 @@ module Chillfile
       end
     
       # MODIFIED
-      def update_doc_attachment(doc)
-        doc.checksum = checksums[:new_checksum]
+      def update_doc_attachment(doc, new_checksum)
+        doc.checksum = new_checksum
         begin
           file = File.open(doc.paths.first)
           doc.update_attachment(:file => file, :name => "master")
@@ -101,7 +102,23 @@ module Chillfile
         doc.deleted = true
         doc.paths = []
         doc
-      end    
+      end
+      
+      # wrapper outer
+      def process_list(list, title, &block)
+        list_iterator = lambda do |notifier|
+          list.each do |args|
+            block.call(*args)
+          end
+          notifier.call if notifier
+        end
+        
+        if @progressbar
+          @progressbar.call({:name => title, :size => list.size}, list_iterator)
+        else
+          list_iterator.call(nil)
+        end
+      end
     
       # wrapper
       def for_doc_with(checksum, &block)

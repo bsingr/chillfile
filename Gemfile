@@ -7,6 +7,7 @@ group :default do
   gem "treedisha", "~> 0.0.2", :git => 'git://github.com/dpree/treedisha.git'
   gem "json"
   gem "thor"
+  gem "ruby-progressbar"
 end
 
 group :test do

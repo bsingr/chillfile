@@ -11,9 +11,9 @@ GIT
 
 GIT
   remote: git://github.com/dpree/treedisha.git
-  revision: 926c6bb92b24972da1cad1b8cf27c32c13096674
+  revision: bce76bfcb419b7308d6d1b062c607ecbcf9f8e37
   specs:
-    treedisha (0.0.1)
+    treedisha (0.0.2)
 
 GEM
   remote: http://rubygems.org/
@@ -72,6 +72,7 @@ GEM
     rspec-expectations (2.3.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.3.0)
+    ruby-progressbar (0.0.9)
     thor (0.14.6)
     tzinfo (0.3.23)
 
@@ -84,5 +85,6 @@ DEPENDENCIES
   jeweler
   json
   rspec
+  ruby-progressbar
   thor
-  treedisha!
+  treedisha (~> 0.0.2)!

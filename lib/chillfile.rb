@@ -1,11 +1,16 @@
 require "yaml"
 
 require 'rubygems'
+
+# LIB
 require "couchrest"
 require 'couchrest_model'
 require "treedisha"
 require "json"
+
+# CLI
 require "thor"
+require "progressbar"
 
 require File.join(File.dirname(__FILE__), "chillfile/config")
 require File.join(File.dirname(__FILE__), "chillfile/cli")
@@ -27,7 +32,7 @@ module Chillfile
       Chillfile::Model.load!
       true
     end
-    
+        
     def config
       @@config
     end
@@ -35,12 +40,12 @@ module Chillfile
       @@dbserver.default_database
     end
     
-    def sync!
+    def sync!(progressbar = nil)
       fs = fs_list
       db = db_list
       comparator = Treedisha::Comparator.new(fs_list, db_list)
       
-      Chillfile::Sync.process!(comparator)
+      Chillfile::Sync.process!(comparator, progressbar)
     end
   
     # filesystem
