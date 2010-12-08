@@ -43,7 +43,7 @@ module Chillfile
             if doc.paths.size > 1
               update_doc_paths(doc, [path])
             else
-              delete_doc(doc, path)
+              delete_doc(doc)
             end
           end
         end

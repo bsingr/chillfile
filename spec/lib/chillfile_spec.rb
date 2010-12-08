@@ -26,7 +26,6 @@ describe Chillfile do
   end
   
   it "should be possible to sync from fs to db" do
-    
     Chillfile.sync!
     sort_by_path(Chillfile.db_list).should == @before_list
     
