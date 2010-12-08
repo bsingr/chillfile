@@ -85,6 +85,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<thor>, [">= 0"])
       s.add_runtime_dependency(%q<thor>, ["~> 0.14.6"])
       s.add_runtime_dependency(%q<couchrest>, ["~> 1.0.1"])
+      s.add_runtime_dependency(%q<treedisha>, ["~> 0.0.2"])
       s.add_development_dependency(%q<rspec>, ["~> 2.0.0"])
     else
       s.add_dependency(%q<couchrest>, [">= 0"])
@@ -94,6 +95,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<thor>, [">= 0"])
       s.add_dependency(%q<thor>, ["~> 0.14.6"])
       s.add_dependency(%q<couchrest>, ["~> 1.0.1"])
+      s.add_dependency(%q<treedisha>, ["~> 0.0.2"])
       s.add_dependency(%q<rspec>, ["~> 2.0.0"])
     end
   else
@@ -104,6 +106,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<thor>, [">= 0"])
     s.add_dependency(%q<thor>, ["~> 0.14.6"])
     s.add_dependency(%q<couchrest>, ["~> 1.0.1"])
+    s.add_dependency(%q<treedisha>, ["~> 0.0.2"])
     s.add_dependency(%q<rspec>, ["~> 2.0.0"])
   end
 end
