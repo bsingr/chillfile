@@ -45,6 +45,11 @@ module Chillfile
       end
     end
     
+    desc 'sync', 'sync filesystem into db'
+    def sync
+      Chillfile.sync!
+    end
+    
     desc 'fslist', 'json list of files in the filesystem'
     def fslist
       say Chillfile.fs_list

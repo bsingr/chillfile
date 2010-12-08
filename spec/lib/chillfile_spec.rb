@@ -13,7 +13,7 @@ describe Chillfile do
   end
   
   it "should be possible to list from db" do
-    ChillingFile.new(:path => "./foo/bar.baz", :checksum => "13123f6casdd03480be5f781ee12312asdasd232").save
+    Chillfile::Model::SyncFile.new(:paths => ["./foo/bar.baz"], :checksum => "13123f6casdd03480be5f781ee12312asdasd232").save
     Chillfile.db_list.should == [["13123f6casdd03480be5f781ee12312asdasd232", "./foo/bar.baz"]]
   end
   
