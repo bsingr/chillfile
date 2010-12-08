@@ -1,15 +1,23 @@
 require "spec_helper"
 
 describe Chillfile do
+  include ListHelper
+  include FsHelper
   include DbHelper
-  
+    
   before(:each) do
-    @test_dir_list = [["83a4f6db0964dd03480be5f781eec6c5c2f7f5f2", "./foo.fx"]]
+    @before_list = sort_by_path(FixturesHelper.parse_json_file("filesystem_before.json"))
+    @after_list = sort_by_path(FixturesHelper.parse_json_file("filesystem_after.json"))
     reset_db!
+    switch_fs!
   end
   
-  it "should be possible to list from fs" do
-    Chillfile.fs_list.should == @test_dir_list
+  it "should be possible to list from different fs" do
+    @before_list.should_not == @after_list
+    Chillfile.fs_list.should == @before_list
+    
+    switch_fs!(:after)
+    Chillfile.fs_list.should == @after_list
   end
   
   it "should be possible to list from db" do
@@ -17,8 +25,14 @@ describe Chillfile do
     Chillfile.db_list.should == [["13123f6casdd03480be5f781ee12312asdasd232", "./foo/bar.baz"]]
   end
   
-  it "should be possible to sync files" do
+  it "should be possible to sync from fs to db" do
+    
     Chillfile.sync!
-    Chillfile.db_list.should == @test_dir_list
+    sort_by_path(Chillfile.db_list).should == @before_list
+    
+    switch_fs!(:after)
+    
+    Chillfile.sync!
+    sort_by_path(Chillfile.db_list).should == @after_list
   end
 end
