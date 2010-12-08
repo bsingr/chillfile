@@ -48,7 +48,7 @@ module Chillfile
     desc 'sync', 'sync filesystem into db'
     def sync
       progressbar = lambda do |info, notifier|
-        pbar = ::ProgressBar.new(info[:name], info[:size])
+        pbar = ::ProgressBar.new("#{info[:name]} (#{info[:size]})", info[:size])
         notifier.call(lambda{ pbar.inc })
         pbar.finish
       end
