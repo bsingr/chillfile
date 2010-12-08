@@ -14,6 +14,9 @@ require "progressbar"
 
 require File.join(File.dirname(__FILE__), "chillfile/config")
 require File.join(File.dirname(__FILE__), "chillfile/cli")
+
+require File.join(File.dirname(__FILE__), "chillfile/helper/sync_helper")
+
 require File.join(File.dirname(__FILE__), "chillfile/database_server")
 require File.join(File.dirname(__FILE__), "chillfile/sync")
 require File.join(File.dirname(__FILE__), "chillfile/model")
