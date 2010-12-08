@@ -10,6 +10,6 @@ require File.join(File.dirname(__FILE__), "support/fs_helper")
 
 FsHelper.switch_fs!
 
-Chillfile.boot!
+Chillfile.boot!("couchdb_database" => "chillfile-tests")
 
 DbHelper.reset_db!
