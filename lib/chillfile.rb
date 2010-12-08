@@ -23,8 +23,8 @@ require File.join(File.dirname(__FILE__), "chillfile/model")
 
 module Chillfile
   get_version = lambda do
-    v = YAML.parse_file(File.join(File.dirname(__FILE__), "../version.yml"))
-    "#{v[:major].value}.#{v[:minor].value}.#{v[:patch].value}"
+    v = YAML.load_file(File.join(File.dirname(__FILE__), "../version.yml"))
+    "#{v[:major]}.#{v[:minor]}.#{v[:patch]}"
   end
   VERSION = get_version.call
   
