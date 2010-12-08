@@ -1,8 +1,11 @@
 require "yaml"
 
 require 'rubygems'
-require "bundler"
-Bundler.require :default
+require "couchrest"
+require 'couchrest_model'
+require "treedisha"
+require "json"
+require "thor"
 
 require File.join(File.dirname(__FILE__), "chillfile/config")
 require File.join(File.dirname(__FILE__), "chillfile/cli")
