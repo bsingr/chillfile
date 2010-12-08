@@ -7,11 +7,7 @@ module Chillfile
         # deleted
         process_list(comparator.deleted, "Delete") do |checksum, path|
           for_doc_with(checksum) do |doc|
-            if doc.paths.size > 1
-              update_doc_paths(doc, [path])
-            else
-              delete_doc(doc)
-            end
+            update_doc_paths(doc, [path])
           end
         end
         
@@ -98,12 +94,14 @@ module Chillfile
         end
         doc
       end
-    
-      # DELETED
-      def delete_doc(doc)
-        doc.deleted = true
-        doc.paths = []
-        doc
+      
+      def doc_save!(doc)
+        if doc.paths.empty?
+          doc.deleted = true
+        elsif doc.deleted
+          doc.deleted = false
+        end
+        doc.save
       end
       
       # wrapper outer
@@ -129,9 +127,9 @@ module Chillfile
         old_doc = Chillfile::Model::SyncFile.by_checksum(:key => checksum).first
         new_doc_or_docs = block.call(old_doc)
         if new_doc_or_docs.is_a? Array
-          new_doc_or_docs.each{|d| d.save}
+          new_doc_or_docs.each{|d| doc_save!(d)}
         else
-          new_doc_or_docs.save
+          doc_save!(new_doc_or_docs)
         end
       end
     end
