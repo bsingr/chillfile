@@ -35,6 +35,10 @@ module Chillfile
     def sync!
       fs = fs_list
       db = db_list
+      puts "=====fppp====="
+      puts fs_list.inspect
+      puts "    ##db##"
+      puts db_list.inspect
       comparator = Treedisha::Comparator.new(fs_list, db_list)
       
       Chillfile::Sync.process!(comparator)

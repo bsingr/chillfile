@@ -2,6 +2,7 @@ module Chillfile
   module Sync
     class << self      
       def process!(comparator)
+        
         # created files
         comparator.created.each do |checksum, path|
           for_doc_with(checksum) do |doc|
