@@ -14,12 +14,12 @@ module Chillfile
     
     class_option "couchdb_database",
             :default => "chillfile",
-            :aliases => '-db',
+            :aliases => '-d',
             :banner => "CouchDB Database name"
             
     class_option "couchdb_type_key",
             :default => "type",
-            :aliases => '-tk',
+            :aliases => '-k',
             :banner => "Attribute name of a CouchDB doc to describe its type"
     
     class_option "version",
