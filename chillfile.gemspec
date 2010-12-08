@@ -39,13 +39,18 @@ Gem::Specification.new do |s|
     "spec/filesystem_after/bar.1.moved.untouched",
     "spec/filesystem_after/bar.2.moved.copy",
     "spec/filesystem_after/bar.3.moved.copy",
+    "spec/filesystem_after/baz.modified.single",
     "spec/filesystem_after/foo.fx.copy",
     "spec/filesystem_after/foo.untouched",
+    "spec/filesystem_after/modified/biz.0.modified.multi",
+    "spec/filesystem_after/modified/biz.1.modified.multi",
     "spec/filesystem_after/moo.new",
     "spec/filesystem_after/subdir_b/bar.4.moved.copy",
     "spec/filesystem_before/bar.0.moved.deleted",
     "spec/filesystem_before/bar.1.moved.untouched",
+    "spec/filesystem_before/baz.modified.single",
     "spec/filesystem_before/foo.untouched",
+    "spec/filesystem_before/modified/biz.0.modified.multi",
     "spec/filesystem_before/subdir/mii.deleted",
     "spec/filesystem_before/wuu.deleted",
     "spec/fixtures/filesystem_after.json",
@@ -83,6 +88,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<treedisha>, ["~> 0.0.2"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_runtime_dependency(%q<thor>, [">= 0"])
+      s.add_runtime_dependency(%q<ruby-progressbar>, [">= 0"])
       s.add_runtime_dependency(%q<thor>, ["~> 0.14.6"])
       s.add_runtime_dependency(%q<couchrest>, ["~> 1.0.1"])
       s.add_runtime_dependency(%q<treedisha>, ["~> 0.0.2"])
@@ -93,6 +99,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<treedisha>, ["~> 0.0.2"])
       s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<thor>, [">= 0"])
+      s.add_dependency(%q<ruby-progressbar>, [">= 0"])
       s.add_dependency(%q<thor>, ["~> 0.14.6"])
       s.add_dependency(%q<couchrest>, ["~> 1.0.1"])
       s.add_dependency(%q<treedisha>, ["~> 0.0.2"])
@@ -104,6 +111,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<treedisha>, ["~> 0.0.2"])
     s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<thor>, [">= 0"])
+    s.add_dependency(%q<ruby-progressbar>, [">= 0"])
     s.add_dependency(%q<thor>, ["~> 0.14.6"])
     s.add_dependency(%q<couchrest>, ["~> 1.0.1"])
     s.add_dependency(%q<treedisha>, ["~> 0.0.2"])
