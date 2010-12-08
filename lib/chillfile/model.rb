@@ -5,7 +5,7 @@ module Chillfile
     
       # all models
       require File.join(File.dirname(__FILE__), "model/base")
-      require File.join(File.dirname(__FILE__), "model/sync_file")
+      require File.join(File.dirname(__FILE__), "model/asset")
     end
   
     private

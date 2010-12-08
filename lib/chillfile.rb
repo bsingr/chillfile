@@ -58,7 +58,7 @@ module Chillfile
   
     # databse
     def db_list
-      Chillfile::Model::SyncFile.by_filesystem_raw
+      Chillfile::Asset.by_filesystem_raw
     end
   end
 end

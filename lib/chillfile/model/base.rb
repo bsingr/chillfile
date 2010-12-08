@@ -1,3 +1,3 @@
-class Chillfile::Model::Base < CouchRest::Model::Base
+class Chillfile::Base < CouchRest::Model::Base
   use_database Chillfile.db
 end

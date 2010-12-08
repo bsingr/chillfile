@@ -88,7 +88,7 @@ module Chillfile::Sync
   
     # wrapper
     def for_doc_with(checksum, &block)
-      old_doc = Chillfile::Model::SyncFile.by_checksum(:key => checksum).first
+      old_doc = Chillfile::Asset.by_checksum(:key => checksum).first
       new_doc_or_docs = block.call(old_doc)
       if new_doc_or_docs.is_a? Array
         new_doc_or_docs.each{|d| doc_save!(d)}

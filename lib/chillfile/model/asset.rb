@@ -1,4 +1,4 @@
-class Chillfile::Model::SyncFile < Chillfile::Model::Base
+class Chillfile::Asset < Chillfile::Base
   timestamps!
   property :checksum, String
   property :paths, [String]
@@ -12,7 +12,7 @@ class Chillfile::Model::SyncFile < Chillfile::Model::Base
   
   view_by :filesystem, :map => "
     function(doc) {
-      if (doc['type'] == 'Chillfile::Model::SyncFile') {
+      if (doc['type'] == 'Chillfile::Asset') {
         for (var i = 0; i < doc['paths'].length; i++) {
           emit(null, [doc['checksum'], doc['paths'][i]]);
         }

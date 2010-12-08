@@ -1,7 +1,7 @@
 module Chillfile::SyncHelper
   # CREATED
   def create_doc(checksum, path)
-    doc = Chillfile::Model::SyncFile.new(:checksum => checksum, :paths => [path])
+    doc = Chillfile::Asset.new(:checksum => checksum, :paths => [path])
     doc.save
     begin
       file = File.open(path)
