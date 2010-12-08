@@ -8,6 +8,7 @@ begin
         gemspec.homepage = "http://github.com/dpree/chillfile"
         gemspec.authors = ["dpree"]
         gemspec.add_dependency("thor", "~> 0.14.6")
+        gemspec.add_dependency("ruby-progressbar", "~> 0.0.9")
         gemspec.add_dependency("couchrest", "~> 1.0.1")
         #gemspec.add_dependency("couchrest_model", "~> 1.0.0.beta8") # currently you have to clone, build and install it yourself from HEAD
         gemspec.add_dependency("treedisha", "~> 0.0.2")
