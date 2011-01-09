@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{chillfile}
-  s.version = "0.0.4"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["dpree"]
-  s.date = %q{2010-12-08}
+  s.date = %q{2011-01-09}
   s.default_executable = %q{chillfile}
   s.description = %q{Let your files chill on the couch}
   s.email = %q{whiterabbit.init@gmail.com}
@@ -32,9 +32,10 @@ Gem::Specification.new do |s|
     "lib/chillfile/cli.rb",
     "lib/chillfile/config.rb",
     "lib/chillfile/database_server.rb",
+    "lib/chillfile/helper/sync_helper.rb",
     "lib/chillfile/model.rb",
+    "lib/chillfile/model/asset.rb",
     "lib/chillfile/model/base.rb",
-    "lib/chillfile/model/sync_file.rb",
     "lib/chillfile/sync.rb",
     "spec/filesystem_after/bar.1.moved.untouched",
     "spec/filesystem_after/bar.2.moved.copy",
@@ -55,7 +56,7 @@ Gem::Specification.new do |s|
     "spec/filesystem_before/wuu.deleted",
     "spec/fixtures/filesystem_after.json",
     "spec/fixtures/filesystem_before.json",
-    "spec/lib/chillfile/model/sync_file_spec.rb",
+    "spec/lib/chillfile/model/asset_spec.rb",
     "spec/lib/chillfile_spec.rb",
     "spec/spec_helper.rb",
     "spec/support/db_helper.rb",
@@ -69,7 +70,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Tiny tool to sync filesystem with couchdb}
   s.test_files = [
-    "spec/lib/chillfile/model/sync_file_spec.rb",
+    "spec/lib/chillfile/model/asset_spec.rb",
     "spec/lib/chillfile_spec.rb",
     "spec/spec_helper.rb",
     "spec/support/db_helper.rb",
