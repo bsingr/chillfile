@@ -1,21 +1,17 @@
 class Chillfile::Asset < Chillfile::Base
   timestamps!
   property :checksum, String
-  property :paths, [String]
+  property :path, String
   
-  # alternative to paths.empty?
   property :deleted, TrueClass, :default => false
   
-  validates_uniqueness_of :checksum
-  
   view_by :checksum
+  view_by :path
   
   view_by :filesystem, :map => "
     function(doc) {
-      if (doc['type'] == 'Chillfile::Asset') {
-        for (var i = 0; i < doc['paths'].length; i++) {
-          emit(null, [doc['checksum'], doc['paths'][i]]);
-        }
+      if (doc['type'] == 'Chillfile::Asset' && !doc['deleted']) {
+        emit(null, [doc['checksum'], doc['path']]);
       }
     }
   "

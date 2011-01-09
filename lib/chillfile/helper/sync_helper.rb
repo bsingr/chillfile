@@ -1,7 +1,7 @@
 module Chillfile::SyncHelper
   # CREATED
   def create_doc(checksum, path)
-    doc = Chillfile::Asset.new(:checksum => checksum, :paths => [path])
+    doc = Chillfile::Asset.new(:checksum => checksum, :path => path)
     doc.save
     begin
       file = File.open(path)
@@ -11,22 +11,26 @@ module Chillfile::SyncHelper
     end
     doc
   end
-
-  # COPIED
-  def update_doc_add_path(doc, path)
-    update_doc_paths(doc, [], [path])
+  
+  # DELETED
+  def delete_doc(doc)
+    doc.deleted = true
+    doc.save
+    doc
   end
 
-  # MOVED/COPIED
-  def update_doc_paths(doc, del_paths = [], add_paths = [])
-    # del old paths
-    del_paths.each do |path|
-      doc.paths.delete(path)
-    end
+  # COPIED
+  def copy_doc(doc, path)
+    doc = create_doc(doc.checksum, path)
+    
+    # TODO keep metadata => make a deep clone here...
+    
+    doc
+  end
 
-    # add new paths
-    doc.paths = doc.paths + add_paths
-  
+  # MOVED
+  def update_doc_path(doc, new_path)
+    doc.path = new_path
     doc
   end
 
@@ -34,7 +38,7 @@ module Chillfile::SyncHelper
   def update_doc_attachment(doc, new_checksum)
     doc.checksum = new_checksum
     begin
-      file = File.open(doc.paths.first)
+      file = File.open(doc.path)
       doc.update_attachment(:file => file, :name => "master")
     ensure
       file.close
@@ -44,11 +48,6 @@ module Chillfile::SyncHelper
   
   # FINALIZER
   def doc_save!(doc)
-    if doc.paths.empty?
-      doc.deleted = true
-    elsif doc.deleted
-      doc.deleted = false
-    end
     doc.save
   end
 end

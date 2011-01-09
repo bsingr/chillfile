@@ -19,7 +19,7 @@ module Chillfile::Sync
     def process_deleted(comparator)
       process_list(comparator.deleted, "Delete") do |checksum, path|
         for_doc_with(checksum) do |doc|
-          update_doc_paths(doc, [path])
+          delete_doc(doc)
         end
       end
     end
@@ -28,7 +28,15 @@ module Chillfile::Sync
     def process_moved(comparator)
       process_list(comparator.moved, "Move") do |checksum, paths|
         for_doc_with(checksum) do |doc|
-          update_doc_paths(doc, paths[:old_paths], paths[:new_paths])
+          if paths[:new_paths].size > 1
+            delete_doc(doc)
+            docs = paths[:new_paths].map do |new_path|
+              copy_doc(doc, new_path)
+            end
+            docs
+          else
+            update_doc_path(doc, paths[:new_paths].first)
+          end
         end
       end
     end
@@ -37,20 +45,7 @@ module Chillfile::Sync
       # modified files
       process_list(comparator.modified, "Modify") do |path, checksums|
         for_doc_with(checksums[:old_checksum]) do |doc|
-          
-          # split it up if there is more than one path
-          if doc.paths.size > 1
-            
-            # remove the old path from the list
-            base_doc = update_doc_paths(doc, [path])
-            
-            # new forked doc
-            fork_doc = create_doc(checksums[:new_checksum], path)
-            
-            [base_doc, fork_doc]
-          else
-            update_doc_attachment(doc, checksums[:new_checksum])
-          end          
+          update_doc_attachment(doc, checksums[:new_checksum])
         end
       end
     end
@@ -59,11 +54,7 @@ module Chillfile::Sync
       # created files
       process_list(comparator.created, "Create") do |checksum, path|
         for_doc_with(checksum) do |doc|
-          if doc
-            update_doc_add_path(doc, path)
-          else
-            create_doc(checksum, path)
-          end
+          create_doc(checksum, path)
         end
       end
     end
