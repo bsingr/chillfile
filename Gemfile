@@ -1,5 +1,4 @@
 source 'http://rubygems.org'
-source 'http://rubygems.org'
 
 group :default do
   gem "couchrest"
