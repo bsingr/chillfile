@@ -4,9 +4,9 @@ begin
         gemspec.name = "chillfile"
         gemspec.summary = "Tiny tool to sync filesystem with couchdb"
         gemspec.description = "Let your files chill on the couch"
-        gemspec.email = "whiterabbit.init@gmail.com"
+        gemspec.email = "mail@jens-bissinger.de"
         gemspec.homepage = "http://github.com/dpree/chillfile"
-        gemspec.authors = ["dpree"]
+        gemspec.authors = ["bsingr"]
         gemspec.add_dependency("thor", "~> 0.14.6")
         gemspec.add_dependency("ruby-progressbar", "~> 0.0.9")
         gemspec.add_dependency("couchrest", "~> 1.0.1")
